@@ -16,7 +16,9 @@ var vm = new Vue({
 	el : '.main',
 	data : {
 		list : list,
-		inputValue : ''
+		inputValue : '',
+		editingTodo : '',
+		beforeEditing : ''
 	},
 	methods:{
 		addTodo(){
@@ -29,6 +31,27 @@ var vm = new Vue({
 		delectTodo(todo){
 			var index = this.list.indexOf(todo);
 			this.list.splice(index,1)
+		},
+		editTodo(todo){
+			this.editingTodo = todo;
+			this.beforeEditing = todo.title
+		},
+		editedTodo(){
+			this.editingTodo = ''
+		},
+		cancelEdit(todo){
+			todo.title = this.beforeEditing;
+			this.beforeEditing = '';
+			this.editingTodo = ''
+		}
+	},
+	directives:{
+		focus:{
+			update(el,binding){
+				if(binding.value){
+					el.focus()
+				}
+			}
 		}
 	}
 })

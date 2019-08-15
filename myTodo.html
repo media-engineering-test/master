@@ -29,13 +29,13 @@
 		<div class="tasks">
 			<span class="no-task-tip">未添加任何项目</span>
 			<ul class="todo-list">
-				<li class="list" v-for="item in list">
+				<li class="list" v-for="item in list" v-bind:class="{completed:item.checked, editing:editingTodo === item}">
 					<div class="view">
 						<input type="checkbox" class="toggle" v-model="item.checked">
-						<label>{{item.title}}</label>
+						<label @dblclick="editTodo(item)">{{item.title}}</label>
 						<button class="destroy" v-on:click="delectTodo(item)"></button>
 					</div>
-					<input type="text" class="edit">
+					<input type="text" class="edit" v-focus="editingTodo === item" v-model="item.title" @keyup.enter="editedTodo" @blur="editedTodo" @keyup.esc="cancelEdit(item)">
 				</li>
 			</ul>
 		</div>
