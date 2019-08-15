@@ -1,0 +1,52 @@
+*{margin: 0; padding: 0;}
+.page-top{
+	height: 50px;
+	width: 100%;
+	background-color: #db4949;
+}
+.page-content, .main{
+	width: 50%;
+	margin: 0 auto;
+	line-height: 50px;
+}
+.page-content h2{color: #fff;}
+.big-title{font-size: 24px;}
+.task-input{width: 100%; height: 40px;}
+.task-count{list-style: none; width: 100%; height: 50px;}
+.task-count li{float: left; color: red;}
+.action a {
+	text-decoration: none;
+	color: #b3adad;
+	margin: 0 20px;
+}
+.no-task-tip{display: block; color: #b3adad}
+.todo-list li{list-style: none;}
+.list{
+	margin: 5px 0px;
+}
+.view{
+	height: 50px;
+	width: 96%;
+	margin: 0 auto;
+	display: block;
+}
+.view:hover{
+	border: solid 1px #eee;
+}
+.toggle, .destroy{
+	height: 30px;
+	width: 30px;
+	margin: 10px 20px;
+}
+.view label{
+	font-size: 24px;
+}
+.destroy{
+	float: right;
+}
+.edit{
+	margin: 0 auto;
+	width: 80%;
+	height: 40px;
+	display: none;
+}
