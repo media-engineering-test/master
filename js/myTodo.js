@@ -12,13 +12,56 @@ var list = [
 		checked : true
 	}
 ]
+
+//处理localstorage
+var setLocal = {
+	save(key,value){
+		localStorage.setItem(key,JSON.stringify(value));
+	},
+	get(key){
+		return JSON.parse(localStorage.getItem(key));
+	}
+}
+var filterChecked = {
+	all(list){
+		return list;
+	},
+	unfinish(list){
+		return list.filter(function(item){
+			return !item.checked;
+		})
+	},
+	finish(list){
+		return list.filter(function(item){
+			return item.checked;
+		})
+	}
+}
+var list = setLocal.get("todo") || [];
 var vm = new Vue({
 	el : '.main',
+	watch:{
+		list : {
+			deep : true,
+			handler : function(){
+				setLocal.save("todo", this.list);
+			}
+		}
+	},
 	data : {
 		list : list,
 		inputValue : '',
 		editingTodo : '',
-		beforeEditing : ''
+		beforeEditing : '',
+		visibility : 'all'
+	},
+	computed : {
+		filterList(){
+			return this.list.filter(function(item){return  !item.checked}).length
+		},
+		filterCheck(){
+			return filterChecked[this.visibility] ? filterChecked[this.visibility](this.list) : this.list;
+		}
 	},
 	methods:{
 		addTodo(){
@@ -55,3 +98,11 @@ var vm = new Vue({
 		}
 	}
 })
+
+function hashchange(){
+	var hash = window.location.hash.slice(1);
+	vm.visibility = hash;
+	// console.log(vm.visibility);
+}
+hashchange()
+window.addEventListener("hashchange", hashchange)
